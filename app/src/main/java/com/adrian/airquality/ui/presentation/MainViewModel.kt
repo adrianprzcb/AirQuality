@@ -68,6 +68,8 @@ class MainViewModel @Inject constructor(
                 var addresses: List<Address>? = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                 var cityName= addresses!![0].getAddressLine(0)
                 city = addresses!![0].locality
+                city =  city.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
                 var adressess2 = geocoder.getFromLocationName(city , 2)
                 lat = location.latitude
                 long = location.longitude
@@ -107,7 +109,11 @@ class MainViewModel @Inject constructor(
                 isLoading = true,
                 error = null
             )
-            this@MainViewModel.city = city
+            var cityv = city.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+            this@MainViewModel.city = cityv
+
+            this@MainViewModel.lat = lat
+            long = lon
             when (val result =
                 repository.getAirQualityData(lat , lon)) {
 

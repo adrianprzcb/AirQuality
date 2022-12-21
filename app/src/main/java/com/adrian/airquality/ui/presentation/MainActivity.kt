@@ -24,6 +24,7 @@ import com.adrian.airquality.domain.Place
 import com.adrian.airquality.ui.theme.AirQualityTheme
 import com.adrian.airquality.ui.theme.couldbeanicebackground
 import com.adrian.airquality.ui.theme.couldbeanicebackground2
+import com.adrian.airquality.ui.theme.couldbeanicebackground3
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window?.statusBarColor = couldbeanicebackground2.toArgb()
+        window?.statusBarColor = couldbeanicebackground3.toArgb()
         super.onCreate(savedInstanceState)
 
         setContent {

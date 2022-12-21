@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,14 +18,18 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.adrian.airquality.domain.AdminSQLiteOpenHelper
 import com.adrian.airquality.domain.Place
@@ -35,7 +40,9 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition",
+    "SuspiciousIndentation"
+)
 @Composable
 fun MainSearchScreen(navController: NavController, mainViewModel: MainViewModel) {
 
@@ -74,71 +81,82 @@ fun MainSearchScreen(navController: NavController, mainViewModel: MainViewModel)
         .fillMaxSize()) {
 
 
-        LazyColumn(modifier = Modifier.padding(top = 40.dp)) {
+        LazyColumn(modifier = Modifier.padding(top = 20.dp)) {
             var placess: List<Place> = listOf()
-            for (place in savedPlacesList) {
+            if (savedPlacesList.isNotEmpty()) {
+                for (place in savedPlacesList) {
 
-                if (!placess.contains(place)) {
-                    item {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
-                                .clickable {
-                                    mainViewModel.updateSearchTextState(newValue = place.name)
-                                    mainViewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED)
-                                    searchCity(navController, mainViewModel, place.name)
-                                },
-                            elevation = 10.dp,
-                            backgroundColor = Color.White
-                        ) {
-                            Column(
+                    if (!placess.contains(place)) {
+                        item {
+                            Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    .height(83.dp)
                                     .padding(10.dp)
+                                    .clickable {
+                                        mainViewModel.updateSearchTextState(newValue = place.name)
+                                        mainViewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED)
+                                        searchCity(navController, mainViewModel, place.name)
+                                    },
+                                elevation = 10.dp,
+                                backgroundColor = Color.White
                             ) {
-                                Text(text = place.name)
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(10.dp)
+                                ) {
+
+                                    Row {
+                                        Column(
+                                            modifier = Modifier.height(83.dp),
+                                            verticalArrangement = Arrangement.Center
+                                        ) {
+                                            Icon(
+                                                imageVector = ImageVector.vectorResource(id = com.adrian.airquality.R.drawable.locationbase),
+                                                contentDescription = null,
+                                                tint = Color.Black,
+                                                modifier = Modifier.size(25.dp)
+                                            )
+                                        }
+                                        Column(
+                                            modifier = Modifier.height(83.dp),
+                                            verticalArrangement = Arrangement.Center
+                                        ) {
+                                            Text(text = "  ${place.name}    ", fontSize = 20.sp)
+                                        }
+                                        Column(
+                                            modifier = Modifier.height(83.dp),
+                                            verticalArrangement = Arrangement.Center
+                                        ) {
+
+                                            Row {
+                                                Text(text = "  Lat: ${place.lat}")
+                                            }
+                                            Row {
+                                                Text(text = "  Long: ${place.long}")
+                                            }
+
+                                        }
+                                    }
+                                }
                             }
                         }
+                        placess += place
                     }
-                    placess += place
+                }
+            }else{
+                item {
+                    Text(text = "No saved places", fontSize = 20.sp , modifier = Modifier.padding(10.dp))
                 }
             }
-               /* items(savedPlacesList.size) { index ->
-                    val place = savedPlacesList[index]
-                    SavedPlaceItem(place = place, onClick = {
-                        mainViewModel.updateSearchTextState(newValue = place.name)
-                        mainViewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED)
-                        searchCity(navController, mainViewModel, place.name)
-                    })
-                }*/
-       /*  if (savedPlacesList != null) {
-                    items(savedPlacesList!!.size) { index ->
-                        Text(text = savedPlacesList!![index].name)
-                        Spacer(modifier = Modifier.height(10.dp))
-                    }
-                } else {
-                    item {
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                            Text(text = "No saved places")
-                        }
-                    }
-            }*/
         }
     }
 
 
     }
 
-@Composable
-fun SavedPlaceItem(place: Place, onClick: () -> Unit) {
-    Text(text = place.name, modifier = Modifier
-        .fillMaxWidth()
-        .clickable(onClick = onClick)
-        .padding(top = 16.dp))
 
-
-}
 
 fun searchCity(navController: NavController, mainViewModel: MainViewModel , city: String) {
 

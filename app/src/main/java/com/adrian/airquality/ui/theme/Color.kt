@@ -18,3 +18,4 @@ val extremelyPoor = Color(0xFF7d2181)
 
 val couldbeanicebackground = Color(0xFFD4F5F5)
 val couldbeanicebackground2 = Color(0xFF8FE7E7)
+val couldbeanicebackground3 = Color(0xFF175353)
