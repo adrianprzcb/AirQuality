@@ -23,12 +23,12 @@ fun Navigation(viewModel: MainViewModel) {
         }
         composable("result_screen_no") {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                ResultScreen(false, viewModel)
+                ResultScreen( viewModel, navController)
             }
         }
         composable("result_screen_yes") {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                ResultScreen(true, viewModel)
+                ResultScreenLocation( viewModel , navController)
             }
         }
     }

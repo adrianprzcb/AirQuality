@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.R
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -50,7 +51,6 @@ fun MainSearchScreen(navController: NavController, mainViewModel: MainViewModel)
         val searchTextState by mainViewModel.searchTextState
         val context = LocalContext.current
 
-    var savedPlacesList: List<Place> = mainViewModel.getListPlaces()
 
         Scaffold(
             topBar = {
@@ -82,6 +82,11 @@ fun MainSearchScreen(navController: NavController, mainViewModel: MainViewModel)
 
 
         LazyColumn(modifier = Modifier.padding(top = 20.dp)) {
+
+            item {
+                YourLocationCard(mainViewModel , navController)
+            }
+            val savedPlacesList: List<Place> = mainViewModel.getListPlaces()
             var placess: List<Place> = listOf()
             if (savedPlacesList.isNotEmpty()) {
                 for (place in savedPlacesList) {
@@ -107,36 +112,40 @@ fun MainSearchScreen(navController: NavController, mainViewModel: MainViewModel)
                                         .padding(10.dp)
                                 ) {
 
-                                    Row {
-                                        Column(
-                                            modifier = Modifier.height(83.dp),
-                                            verticalArrangement = Arrangement.Center
-                                        ) {
-                                            Icon(
-                                                imageVector = ImageVector.vectorResource(id = com.adrian.airquality.R.drawable.locationbase),
-                                                contentDescription = null,
-                                                tint = Color.Black,
-                                                modifier = Modifier.size(25.dp)
-                                            )
-                                        }
-                                        Column(
-                                            modifier = Modifier.height(83.dp),
-                                            verticalArrangement = Arrangement.Center
-                                        ) {
-                                            Text(text = "  ${place.name}    ", fontSize = 20.sp)
-                                        }
-                                        Column(
-                                            modifier = Modifier.height(83.dp),
-                                            verticalArrangement = Arrangement.Center
-                                        ) {
-
-                                            Row {
-                                                Text(text = "  Lat: ${place.lat}")
+                                    LazyRow {
+                                        item {
+                                            Column(
+                                                modifier = Modifier.height(83.dp),
+                                                verticalArrangement = Arrangement.Center
+                                            ) {
+                                                Icon(
+                                                    imageVector = ImageVector.vectorResource(id = com.adrian.airquality.R.drawable.locationbase),
+                                                    contentDescription = null,
+                                                    tint = Color.Black,
+                                                    modifier = Modifier.size(25.dp)
+                                                )
                                             }
-                                            Row {
-                                                Text(text = "  Long: ${place.long}")
+                                            Column(
+                                                modifier = Modifier.height(83.dp),
+                                                verticalArrangement = Arrangement.Center
+                                            ) {
+                                                Text(text = "  ${place.name}    ", fontSize = 20.sp)
                                             }
+                                            Column(
+                                                modifier = Modifier.height(83.dp),
+                                                verticalArrangement = Arrangement.Center
+                                            ) {
 
+                                                Row {
+                                                    var latt = String.format("%.6f", place.lat)
+                                                    Text(text = "  Lat: $latt")
+                                                }
+                                                Row {
+                                                    var long = String.format("%.6f", place.long)
+                                                    Text(text = "  Long: $long")
+                                                }
+
+                                            }
                                         }
                                     }
                                 }
@@ -156,6 +165,50 @@ fun MainSearchScreen(navController: NavController, mainViewModel: MainViewModel)
 
     }
 
+@Composable
+fun YourLocationCard(mainViewModel: MainViewModel, navController: NavController) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(83.dp)
+            .padding(10.dp)
+            .clickable {
+                mainViewModel.loadAirQualityInfo()
+                navController.navigate("result_screen_yes")
+            },
+        elevation = 10.dp,
+        backgroundColor = Color.White
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ) {
+
+            LazyRow {
+                item {
+                    Column(
+                        modifier = Modifier.height(83.dp),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = com.adrian.airquality.R.drawable.locationbase),
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(25.dp)
+                        )
+                    }
+                    Column(
+                        modifier = Modifier.height(83.dp),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "  Use your location  ", fontSize = 20.sp)
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 fun searchCity(navController: NavController, mainViewModel: MainViewModel , city: String) {
@@ -244,6 +297,7 @@ fun searchCity(navController: NavController, mainViewModel: MainViewModel , city
             TextField(modifier = Modifier
                 .fillMaxWidth(),
                 value = text,
+                maxLines = 1,
                 onValueChange = {
                     onTextChange(it)
                 },
@@ -294,7 +348,7 @@ fun searchCity(navController: NavController, mainViewModel: MainViewModel , city
                 ),
                 keyboardActions = KeyboardActions(
                     onSearch = {
-                        onSearchClicked(text)
+                        onSearchClicked(text.trim())
                     }
                 ),
                 colors = TextFieldDefaults.textFieldColors(

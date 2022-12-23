@@ -6,10 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,11 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.adrian.airquality.ui.theme.*
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ResultScreen(userslocation: Boolean, mainViewModel: MainViewModel) {
+fun ResultScreen( mainViewModel: MainViewModel , navController: NavController) {
 
     LazyColumn(
         Modifier
@@ -49,7 +47,8 @@ fun ResultScreen(userslocation: Boolean, mainViewModel: MainViewModel) {
                         state = mainViewModel.state,
                         backgroundColor = Color.White,
                         cityName = mainViewModel.city,
-                        mainViewModel = mainViewModel
+                        mainViewModel = mainViewModel,
+                        navController = navController
                     )
                     Spacer(modifier = Modifier.height(1.dp))
 
@@ -86,7 +85,8 @@ fun RnCard(
            backgroundColor: Color,
            cityName: String,
     modifier : Modifier = Modifier,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    navController: NavController
     ) {
         state.weatherInfo?.currentData?.let { data ->
             Card(
@@ -202,9 +202,38 @@ fun RnCard(
                 }
             }
 
-            Button(onClick = { mainViewModel.saveLocation(mainViewModel.city , mainViewModel.lat , mainViewModel.long) }) {
-                Text(text = "Save")
+            var locationExists : Boolean = mainViewModel.locationExists(mainViewModel.city)
+
+            if(locationExists){
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+                    Button(onClick = {
+                        mainViewModel.deleteLocation(mainViewModel.city )
+                        navController.navigate("main_screen")
+                    },colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.White,
+                        contentColor = Color.Red)
+                    ) {
+                        Text(text = "Delete Location")
+                    }
+                }
+            }else{
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                    Button(onClick = {
+                        mainViewModel.saveLocation(
+                            mainViewModel.city,
+                            mainViewModel.lat,
+                            mainViewModel.long
+                        )
+                        navController.navigate("main_screen")
+                    },colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.White,
+                        contentColor = Color.Red)
+                    ) {
+                        Text(text = "Save Location")
+                    }
+                }
             }
+
         }
 }
 

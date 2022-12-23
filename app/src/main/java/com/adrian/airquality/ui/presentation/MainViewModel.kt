@@ -57,7 +57,7 @@ class MainViewModel @Inject constructor(
 
 
 
-    fun loadWeatherInfo() {
+    fun loadAirQualityInfo() {
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true,
@@ -173,6 +173,25 @@ class MainViewModel @Inject constructor(
        clasificacion.execSQL("INSERT INTO clasificacion (name, lat, long) VALUES ('$city', '$lat', '$long')")
        clasificacion.close()
    }
+
+    fun deleteLocation(city : String) {
+        val admin = AdminSQLiteOpenHelper(getApplication(), "clasificacion", null, 1)
+        val clasificacion: SQLiteDatabase = admin.getWritableDatabase()
+        clasificacion.execSQL("DELETE FROM clasificacion WHERE name = '$city'")
+        clasificacion.close()
+    }
+
+
+    fun locationExists(city: String) : Boolean{
+        val admin = AdminSQLiteOpenHelper(getApplication(), "clasificacion", null, 1)
+        val clasificacion: SQLiteDatabase = admin.getWritableDatabase()
+        val cursorCourses =
+            clasificacion.rawQuery("SELECT * FROM " + "clasificacion WHERE name = '$city' ORDER BY name DESC", null)
+        if (cursorCourses.moveToFirst()) {
+            return true
+        }
+        return false
+    }
 
    }
 
