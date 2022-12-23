@@ -76,12 +76,12 @@ fun MainSearchScreen(navController: NavController, mainViewModel: MainViewModel)
 
         ){}
     Box(modifier = Modifier
-        .padding(top = 53.dp)
+        .padding(top = 66.dp)
         .background(couldbeanicebackground)
         .fillMaxSize()) {
 
 
-        LazyColumn(modifier = Modifier.padding(top = 20.dp)) {
+        LazyColumn(modifier = Modifier.padding(top = 10.dp)) {
 
             item {
                 YourLocationCard(mainViewModel , navController)
@@ -177,7 +177,7 @@ fun YourLocationCard(mainViewModel: MainViewModel, navController: NavController)
                 navController.navigate("result_screen_yes")
             },
         elevation = 10.dp,
-        backgroundColor = Color.White
+        backgroundColor = couldbeanicebackground2
     ) {
         Column(
             modifier = Modifier
@@ -265,7 +265,7 @@ fun searchCity(navController: NavController, mainViewModel: MainViewModel , city
                 )
             },
             backgroundColor = couldbeanicebackground2,
-            modifier = Modifier.clickable { onSearchClicked() },
+            modifier = Modifier.clickable { onSearchClicked() }.height(66.dp),
             actions = {
                 IconButton(
                     onClick = { onSearchClicked() }
@@ -290,7 +290,7 @@ fun searchCity(navController: NavController, mainViewModel: MainViewModel , city
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp),
+                .height(80.dp),
             elevation = AppBarDefaults.TopAppBarElevation,
             color = couldbeanicebackground
         ) {

@@ -154,17 +154,17 @@ fun RnCard(
                     Spacer(modifier = Modifier.height(10.dp))
                     Row(modifier = Modifier
                         .fillMaxWidth()) {
-                        Text(text = "Good", color = good, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 10.sp))
+                        Text(text = "Good", color = good, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 11.sp))
                         Spacer(modifier =Modifier.width(5.dp))
-                        Text(text = "Fair", color = fair, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 10.sp))
+                        Text(text = "Fair", color = fair, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 11.sp))
                         Spacer(modifier =Modifier.width(5.dp))
-                        Text(text = "Moderate", color = moderate, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 10.sp))
+                        Text(text = "Moderate", color = moderate, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 11.sp))
                         Spacer(modifier =Modifier.width(5.dp))
-                        Text(text = "Poor", color = poor, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 10.sp))
+                        Text(text = "Poor", color = poor, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 11.sp))
                         Spacer(modifier =Modifier.width(5.dp))
-                        Text(text = "Very Poor", color = veryPoor, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 10.sp))
+                        Text(text = "Very Poor", color = veryPoor, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 11.sp))
                         Spacer(modifier =Modifier.width(5.dp))
-                        Text(text = "Extremely Poor", color = extremelyPoor, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 10.sp))
+                        Text(text = "Extremely Poor", color = extremelyPoor, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 11.sp))
                         Spacer(modifier =Modifier.width(5.dp))
                     }
                     Spacer(modifier = Modifier.height(15.dp))

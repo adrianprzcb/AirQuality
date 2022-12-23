@@ -2,6 +2,6 @@
 <resources>
 
     <style name="Theme.AirQuality" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:windowBackground">@color/blueish</item>
     </style>
 </resources>
