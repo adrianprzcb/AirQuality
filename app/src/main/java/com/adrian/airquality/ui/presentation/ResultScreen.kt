@@ -238,7 +238,7 @@ fun RnCard(
 }
 
 
-fun getColor(index : String , num : Int): Color {
+fun getColor(index : String , num : Double): Color {
     if(index == "pm25"){
         return when {
             num <= 10 -> good
