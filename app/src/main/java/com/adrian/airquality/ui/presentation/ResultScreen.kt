@@ -113,43 +113,43 @@ fun RnCard(
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(text = "Main indexes: ", color = Color.Black , fontWeight = FontWeight.Thin, fontSize = 20.sp)
                     Row (modifier = Modifier
-                        .background(getColor("pm25", data.pm25))
+                        .background(getColor("pm25", data.pm25  ?: 0.0))
                         .fillMaxWidth()){
                         Text(text =  "PM2.5: ", color = Color.White , style = TextStyle( fontSize = 20.sp))
                         Spacer(modifier = Modifier.width(10.dp))
-                        Text(text = "${data.pm25} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
+                        Text(text = "${data.pm25 ?: "N/A"} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Row (modifier = Modifier
-                        .background(getColor("pm10", data.pm10))
+                        .background(getColor("pm10", data.pm10 ?: 0.0))
                         .fillMaxWidth()){
                         Text(text =  "PM10: ", color = Color.White , style = TextStyle( fontSize = 20.sp))
                         Spacer(modifier = Modifier.width(10.dp))
-                        Text(text = "${data.pm10} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
+                        Text(text = "${data.pm10 ?: "N/A"} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Row (modifier = Modifier
-                        .background(getColor("nitrogenDioxide", data.nitrogenDioxide))
+                        .background(getColor("nitrogenDioxide", data.nitrogenDioxide ?: 0.0))
                         .fillMaxWidth()){
                         Text(text =  "Nitrogen Dioxide: ", color = Color.White , style = TextStyle( fontSize = 20.sp))
                         Spacer(modifier = Modifier.width(10.dp))
-                        Text(text = "${data.nitrogenDioxide} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
+                        Text(text = "${data.nitrogenDioxide ?: "N/A"} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Row (modifier = Modifier
-                        .background(getColor("sulphurDioxide", data.sulphurDioxide))
+                        .background(getColor("sulphurDioxide", data.sulphurDioxide ?: 0.0))
                         .fillMaxWidth()){
                         Text(text =  "Sulphur Dioxide: ", color = Color.White , style = TextStyle( fontSize = 20.sp))
                         Spacer(modifier = Modifier.width(10.dp))
-                        Text(text = "${data.sulphurDioxide} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
+                        Text(text = "${data.sulphurDioxide ?: "N/A"} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Row (modifier = Modifier
-                        .background(getColor("ozone", data.ozone))
+                        .background(getColor("ozone", data.ozone ?: 0.0))
                         .fillMaxWidth()){
                         Text(text =  "Ozone: ", color = Color.White , style = TextStyle(fontSize = 20.sp))
                         Spacer(modifier = Modifier.width(10.dp))
-                        Text(text = "${data.ozone} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
+                        Text(text = "${data.ozone ?: "N/A"} µg/m³", color = Color.White, style = TextStyle(fontWeight = FontWeight.Bold , fontSize = 20.sp))
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Row(modifier = Modifier

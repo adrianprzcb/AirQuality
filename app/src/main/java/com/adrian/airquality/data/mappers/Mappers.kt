@@ -17,16 +17,16 @@ private data class IndexedWeatherData(
 
 fun AirQualityDataDto.toAirQualityDataMap(): Map<Int, List<AirQualityData>> {
     return time.mapIndexed { index, time ->
-           val pm10 = pm10s[index]
-            val pm25 = pm2_5s[index]
-            val carbonMonoxide = carbon_monoxides[index]
-            val nitrogenDioxide = nitrogen_dioxides[index]
-            val  sulphurDioxide = sulphur_dioxides[index]
-            val  ozone = ozones[index]
-            val  aerosolOpticalDepth = aerosol_optical_depths[index]
-            val  dust = dusts[index]
-            val  uvIndex = uv_indexes[index]
-            val  uvIndexClearSky = uv_indexes_clear_sky[index]
+        val pm10 = pm10s.getOrNull(index) ?: 0.0
+        val pm25 = pm2_5s.getOrNull(index) ?: 0.0
+        val carbonMonoxide = carbon_monoxides.getOrNull(index) ?: 0.0
+        val nitrogenDioxide = nitrogen_dioxides.getOrNull(index) ?: 0.0
+        val sulphurDioxide = sulphur_dioxides.getOrNull(index) ?: 0.0
+        val ozone = ozones.getOrNull(index) ?: 0.0
+        val aerosolOpticalDepth = aerosol_optical_depths.getOrNull(index) ?: 0.0
+        val dust = dusts.getOrNull(index) ?: 0.0
+        val uvIndex = uv_indexes.getOrNull(index) ?: 0.0
+        val uvIndexClearSky = uv_indexes_clear_sky.getOrNull(index) ?: 0.0
 
         IndexedWeatherData(
             index = index,
